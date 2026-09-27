@@ -1,4 +1,4 @@
-# Modern E-Commerce Analytics Platform
+# E-commerce Funnel Lakehouse
 
 [![CI](https://github.com/DiazSk/ecommerce-funnel-lakehouse/actions/workflows/ci.yml/badge.svg?branch=main&event=push)](https://github.com/DiazSk/ecommerce-funnel-lakehouse/actions/workflows/ci.yml?query=branch%3Amain+event%3Apush)
 
