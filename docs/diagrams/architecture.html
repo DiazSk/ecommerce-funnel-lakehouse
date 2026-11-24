@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pipeline architecture</title>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Schibsted Grotesk', system-ui, sans-serif;background:#F5F4F6;color:#16181A;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:3rem 2rem}
+.frame{max-width:1440px;width:100%}
+.diagram-container{width:100%;overflow-x:auto}
+.eyebrow{font-family:'Geist Mono', ui-monospace, monospace;font-size:.66rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:#6B6D72;margin-bottom:.5rem}
+h1{font-weight:400;font-size:clamp(1.5rem,2.4vw + .75rem,2rem);letter-spacing:-.02em;line-height:1.15;margin-bottom:1.5rem}
+svg{width:100%;min-width:1392px;display:block}
+@media print{.diagram-container{overflow-x:visible}svg{min-width:0}}
+</style></head><body><div class="frame">
+<p class="eyebrow">Architecture · rees46_pipeline</p>
+<h1>REES46 pipeline on Databricks Free Edition</h1>
+<div class="diagram-container">
+<svg viewBox="0 176 1392 404" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="architecture-title architecture-desc">
+<title id="architecture-title">REES46 pipeline on Databricks Free Edition</title>
+<desc id="architecture-desc">Kaggle REES46 events are ingested into a Unity Catalog volume, written to the raw_events Delta table by PySpark, modelled by dbt into an incremental fct_sessions table, dimensions and marts, then queried into committed results that build the GitHub Pages dashboard.</desc>
+<defs><marker id="arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#4F5156"/></marker></defs>
+<rect x="0" y="176" width="1392" height="404" fill="#F5F4F6"/>
+<rect x="216" y="200" width="960" height="308" rx="8" fill="rgba(22,24,26,0.02)" stroke="rgba(22,24,26,0.12)" stroke-width="0.8"/>
+<rect x="232" y="204" width="255" height="12" rx="2" fill="#F5F4F6"/>
+<text x="359.5" y="213" fill="#6B6D72" font-size="7" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" letter-spacing="0.14em">DATABRICKS FREE EDITION · JOB REES46_PIPELINE</text>
+<rect x="1196" y="200" width="176" height="308" rx="8" fill="rgba(22,24,26,0.02)" stroke="rgba(22,24,26,0.12)" stroke-width="0.8"/>
+<rect x="1212" y="204" width="82" height="12" rx="2" fill="#F5F4F6"/>
+<text x="1253.0" y="213" fill="#6B6D72" font-size="7" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" letter-spacing="0.14em">REPO · GITHUB</text>
+
+<line x1="176" y1="360" x2="234" y2="360" fill="none" stroke="#4F5156" stroke-width="1.2" marker-end="url(#arrow)"/>
+<line x1="372" y1="360" x2="430" y2="360" fill="none" stroke="#4F5156" stroke-width="1.2" marker-end="url(#arrow)"/>
+<line x1="568" y1="360" x2="626" y2="360" fill="none" stroke="#4F5156" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M764,348 H786 Q794,348 794,340 V272 Q794,264 802,264 H822" fill="none" stroke="#4F5156" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M764,372 H786 Q794,372 794,380 V448 Q794,456 802,456 H822" fill="none" stroke="#4F5156" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M960,264 H982 Q990,264 990,272 V340 Q990,348 998,348 H1018" fill="none" stroke="#4F5156" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M960,456 H982 Q990,456 990,448 V380 Q990,372 998,372 H1018" fill="none" stroke="#4F5156" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M1156,360 H1178 Q1186,360 1186,352 V272 Q1186,264 1194,264 H1214" fill="none" stroke="#4F5156" stroke-width="1.2" marker-end="url(#arrow)"/>
+<line x1="1284" y1="296" x2="1284" y2="422" fill="none" stroke="#4F5156" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="185.5" y="340" width="41" height="12" rx="2" fill="#F5F4F6"/><text x="206" y="349" fill="#6B6D72" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" letter-spacing="0.06em">INGEST</text>
+<rect x="379.0" y="340" width="46" height="12" rx="2" fill="#F5F4F6"/><text x="402" y="349" fill="#6B6D72" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" letter-spacing="0.06em">PYSPARK</text>
+<rect x="572.0" y="340" width="52" height="12" rx="2" fill="#F5F4F6"/><text x="598" y="349" fill="#6B6D72" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" letter-spacing="0.06em">DBT TASK</text>
+<rect x="1292" y="354" width="80" height="12" rx="2" fill="#F5F4F6"/><text x="1296" y="363" fill="#6B6D72" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="start" letter-spacing="0.06em">BUILD_SITE.PY</text>
+<g data-node="Kaggle REES46">
+  <rect x="40" y="328" width="136" height="64" rx="6" fill="#F5F4F6"/>
+  <rect x="40" y="328" width="136" height="64" rx="6" fill="rgba(22,24,26,0.03)" stroke="rgba(22,24,26,0.30)" stroke-width="1"/>
+  <rect x="48" y="334" width="28" height="12" rx="2" fill="none" stroke="rgba(22,24,26,0.30)" stroke-opacity="0.5" stroke-width="0.8"/>
+  <text x="62.0" y="343" fill="#6B6D72" font-size="7" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" letter-spacing="0.08em">SRC</text>
+  <text x="108.0" y="368" fill="#16181A" font-size="12" font-weight="600" font-family="'Schibsted Grotesk', system-ui, sans-serif" text-anchor="middle">Kaggle REES46</text>
+  <text x="108.0" y="382" fill="#4F5156" font-size="9" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">Kaggle API · 2 CSVs</text>
+</g>
+<g data-node="Landing">
+  <rect x="236" y="328" width="136" height="64" rx="6" fill="#F5F4F6"/>
+  <rect x="236" y="328" width="136" height="64" rx="6" fill="rgba(22,24,26,0.05)" stroke="#4F5156" stroke-width="1"/>
+  <rect x="244" y="334" width="42" height="12" rx="2" fill="none" stroke="#4F5156" stroke-opacity="0.5" stroke-width="0.8"/>
+  <text x="265.0" y="343" fill="#6B6D72" font-size="7" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" letter-spacing="0.08em">VOLUME</text>
+  <text x="304.0" y="368" fill="#16181A" font-size="12" font-weight="600" font-family="'Schibsted Grotesk', system-ui, sans-serif" text-anchor="middle">Landing</text>
+  <text x="304.0" y="382" fill="#4F5156" font-size="9" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">Unity Catalog volume</text>
+</g>
+<g data-node="raw_events">
+  <rect x="432" y="328" width="136" height="64" rx="6" fill="#F5F4F6"/>
+  <rect x="432" y="328" width="136" height="64" rx="6" fill="rgba(22,24,26,0.05)" stroke="#4F5156" stroke-width="1"/>
+  <rect x="440" y="334" width="37" height="12" rx="2" fill="none" stroke="#4F5156" stroke-opacity="0.5" stroke-width="0.8"/>
+  <text x="458.5" y="343" fill="#6B6D72" font-size="7" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" letter-spacing="0.08em">DELTA</text>
+  <text x="500.0" y="368" fill="#16181A" font-size="12" font-weight="600" font-family="'Schibsted Grotesk', system-ui, sans-serif" text-anchor="middle">raw_events</text>
+  <text x="500.0" y="382" fill="#4F5156" font-size="9" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">replaceWhere by month</text>
+</g>
+<g data-node="stg_events">
+  <rect x="628" y="328" width="136" height="64" rx="6" fill="#F5F4F6"/>
+  <rect x="628" y="328" width="136" height="64" rx="6" fill="#ffffff" stroke="#16181A" stroke-width="1"/>
+  <rect x="636" y="334" width="28" height="12" rx="2" fill="none" stroke="#16181A" stroke-opacity="0.5" stroke-width="0.8"/>
+  <text x="650.0" y="343" fill="#6B6D72" font-size="7" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" letter-spacing="0.08em">DBT</text>
+  <text x="696.0" y="368" fill="#16181A" font-size="12" font-weight="600" font-family="'Schibsted Grotesk', system-ui, sans-serif" text-anchor="middle">stg_events</text>
+  <text x="696.0" y="382" fill="#4F5156" font-size="9" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">typed · null-safe</text>
+</g>
+<g data-node="fct_sessions">
+  <rect x="824" y="232" width="136" height="64" rx="6" fill="#F5F4F6"/>
+  <rect x="824" y="232" width="136" height="64" rx="6" fill="rgba(42,120,214,0.08)" stroke="#2a78d6" stroke-width="1"/>
+  <rect x="832" y="238" width="28" height="12" rx="2" fill="none" stroke="#2a78d6" stroke-opacity="0.5" stroke-width="0.8"/>
+  <text x="846.0" y="247" fill="#16181A" font-size="7" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" letter-spacing="0.08em">DBT</text>
+  <text x="892.0" y="272" fill="#16181A" font-size="12" font-weight="600" font-family="'Schibsted Grotesk', system-ui, sans-serif" text-anchor="middle">fct_sessions</text>
+  <text x="892.0" y="286" fill="#4F5156" font-size="9" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">incremental merge</text>
+</g>
+<g data-node="Dimensions">
+  <rect x="824" y="424" width="136" height="64" rx="6" fill="#F5F4F6"/>
+  <rect x="824" y="424" width="136" height="64" rx="6" fill="#ffffff" stroke="#16181A" stroke-width="1"/>
+  <rect x="832" y="430" width="28" height="12" rx="2" fill="none" stroke="#16181A" stroke-opacity="0.5" stroke-width="0.8"/>
+  <text x="846.0" y="439" fill="#6B6D72" font-size="7" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" letter-spacing="0.08em">DBT</text>
+  <text x="892.0" y="464" fill="#16181A" font-size="12" font-weight="600" font-family="'Schibsted Grotesk', system-ui, sans-serif" text-anchor="middle">Dimensions</text>
+  <text x="892.0" y="478" fill="#4F5156" font-size="9" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">products, users, date</text>
+</g>
+<g data-node="Marts">
+  <rect x="1020" y="328" width="136" height="64" rx="6" fill="#F5F4F6"/>
+  <rect x="1020" y="328" width="136" height="64" rx="6" fill="#ffffff" stroke="#16181A" stroke-width="1"/>
+  <rect x="1028" y="334" width="32" height="12" rx="2" fill="none" stroke="#16181A" stroke-opacity="0.5" stroke-width="0.8"/>
+  <text x="1044.0" y="343" fill="#6B6D72" font-size="7" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" letter-spacing="0.08em">MART</text>
+  <text x="1088.0" y="368" fill="#16181A" font-size="12" font-weight="600" font-family="'Schibsted Grotesk', system-ui, sans-serif" text-anchor="middle">Marts</text>
+  <text x="1088.0" y="382" fill="#4F5156" font-size="9" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">funnel · abandonment</text>
+</g>
+<g data-node="Analysis">
+  <rect x="1216" y="232" width="136" height="64" rx="6" fill="#F5F4F6"/>
+  <rect x="1216" y="232" width="136" height="64" rx="6" fill="#ffffff" stroke="#16181A" stroke-width="1"/>
+  <rect x="1224" y="238" width="28" height="12" rx="2" fill="none" stroke="#16181A" stroke-opacity="0.5" stroke-width="0.8"/>
+  <text x="1238.0" y="247" fill="#6B6D72" font-size="7" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" letter-spacing="0.08em">SQL</text>
+  <text x="1284.0" y="272" fill="#16181A" font-size="12" font-weight="600" font-family="'Schibsted Grotesk', system-ui, sans-serif" text-anchor="middle">Analysis</text>
+  <text x="1284.0" y="286" fill="#4F5156" font-size="9" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">results CSV → memo</text>
+</g>
+<g data-node="Dashboard">
+  <rect x="1216" y="424" width="136" height="64" rx="6" fill="#F5F4F6"/>
+  <rect x="1216" y="424" width="136" height="64" rx="6" fill="rgba(42,120,214,0.08)" stroke="#2a78d6" stroke-width="1"/>
+  <rect x="1224" y="430" width="28" height="12" rx="2" fill="none" stroke="#2a78d6" stroke-opacity="0.5" stroke-width="0.8"/>
+  <text x="1238.0" y="439" fill="#16181A" font-size="7" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" letter-spacing="0.08em">WEB</text>
+  <text x="1284.0" y="464" fill="#16181A" font-size="12" font-weight="600" font-family="'Schibsted Grotesk', system-ui, sans-serif" text-anchor="middle">Dashboard</text>
+  <text x="1284.0" y="478" fill="#4F5156" font-size="9" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">GitHub Pages</text>
+</g>
+<line x1="40" y1="528" x2="1352" y2="528" stroke="rgba(22,24,26,0.12)" stroke-width="0.8"/>
+<text x="40" y="555" fill="#6B6D72" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" letter-spacing="0.14em">LEGEND</text>
+<rect x="124" y="546" width="16" height="10" rx="2" fill="rgba(22,24,26,0.03)" stroke="rgba(22,24,26,0.30)" stroke-width="1"/><text x="148" y="555" fill="#4F5156" font-size="9" font-family="'Geist Mono', ui-monospace, monospace">External source</text><rect x="284" y="546" width="16" height="10" rx="2" fill="rgba(22,24,26,0.05)" stroke="#4F5156" stroke-width="1"/><text x="308" y="555" fill="#4F5156" font-size="9" font-family="'Geist Mono', ui-monospace, monospace">Storage</text><rect x="404" y="546" width="16" height="10" rx="2" fill="#ffffff" stroke="#16181A" stroke-width="1"/><text x="428" y="555" fill="#4F5156" font-size="9" font-family="'Geist Mono', ui-monospace, monospace">dbt model / job step</text><rect x="604" y="546" width="16" height="10" rx="2" fill="rgba(42,120,214,0.08)" stroke="#2a78d6" stroke-width="1"/><text x="628" y="555" fill="#4F5156" font-size="9" font-family="'Geist Mono', ui-monospace, monospace">Focal: incremental core, public output</text>
+</svg>
+</div></div></body></html>

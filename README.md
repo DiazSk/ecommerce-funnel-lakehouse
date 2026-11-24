@@ -17,18 +17,9 @@ sizes with confidence intervals.
 
 ## Architecture
 
-```mermaid
-flowchart LR
-    K[Kaggle REES46] -->|ingest task| V[(UC volume<br/>landing)]
-    V -->|PySpark transform<br/>dedupe, key, UTC| R[(Delta<br/>raw_events)]
-    R -->|dbt_task| S[stg_events]
-    S --> I[int_sessions] --> F[fct_sessions<br/>incremental merge]
-    S --> P[fct_purchases]
-    S --> D[dim_products / dim_users / dim_date]
-    F --> M1[mart_funnel_daily]
-    D --> M2[mart_cart_abandonment]
-    M1 & M2 --> A[analysis/*.sql → memo, charts, dashboard]
-```
+![REES46 pipeline: Kaggle → Unity Catalog volume → raw_events (Delta) → dbt (stg_events, fct_sessions, dimensions, marts) on Databricks Free Edition, then analysis SQL → GitHub Pages dashboard](docs/diagrams/architecture.svg)
+
+<sub>Source: [`docs/diagrams/architecture.html`](docs/diagrams/architecture.html)</sub>
 
 The pipeline is one Databricks Workflows job, `rees46_pipeline`, defined as code in a
 Databricks Asset Bundle (`databricks.yml`, `resources/rees46.yml`). It's a
